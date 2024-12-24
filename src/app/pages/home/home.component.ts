@@ -1,12 +1,13 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { HousingLocationComponent } from '../housing-location/housing-location.component';
-import { HousingLocation } from '../housingLocation';
+import { HousingLocation } from '../../housingLocation';
 import { CommonModule } from '@angular/common';
-import {HousingService} from '../housing.service';
+import {HousingService} from '../../services/housing.service';
 
 @Component({
   selector: 'app-home',
   imports: [CommonModule, HousingLocationComponent],
+  providers: [HousingService],
   template: `
     <section>
       <form>
@@ -25,10 +26,11 @@ import {HousingService} from '../housing.service';
 })
 export class HomeComponent {
   housingLocationList: HousingLocation[] = []
-  housingService: HousingService = inject(HousingService)
   filteredLocationList: HousingLocation[] = []
 
-  constructor() {
+  constructor(
+    private housingService: HousingService
+  ) {
     this.housingService.getAllHousingLocations().then((housingLocationList: HousingLocation[]) => {
       this.housingLocationList = housingLocationList
       this.filteredLocationList = housingLocationList

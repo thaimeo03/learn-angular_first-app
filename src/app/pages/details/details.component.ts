@@ -1,12 +1,13 @@
-import { Component, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { HousingLocation } from '../housingLocation';
-import { HousingService } from '../housing.service';
+import { Component } from '@angular/core';
+import { ActivatedRoute, RouterModule } from '@angular/router';
+import { HousingLocation } from '../../housingLocation';
+import { HousingService } from '../../services/housing.service';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-details',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterModule],
+  providers: [HousingService],
   template: `
     <article>
       <img
@@ -44,16 +45,18 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
   styleUrls: ['./details.component.css'],
 })
 export class DetailsComponent {
-  route: ActivatedRoute = inject(ActivatedRoute);
-  housingService: HousingService = inject(HousingService);
   housingLocation: HousingLocation | undefined;
   applyForm = new FormGroup({
     firstName: new FormControl(''),
     lastName: new FormControl(''),
     email: new FormControl(''),
   })
+  
 
-  constructor() {
+  constructor(
+    private housingService: HousingService,
+    private route: ActivatedRoute
+  ) {
     const housingLocationId = Number(this.route.snapshot.params['id']);
     this.housingService.getHousingLocationById(housingLocationId)
                         .then((housingLocation) => {
