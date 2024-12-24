@@ -31,10 +31,12 @@ export class HomeComponent {
   constructor(
     private housingService: HousingService
   ) {
-    this.housingService.getAllHousingLocations().then((housingLocationList: HousingLocation[]) => {
-      this.housingLocationList = housingLocationList
-      this.filteredLocationList = housingLocationList
-    })
+    this.housingService.getAllHousingLocations().subscribe(
+      (housingLocationList) => {
+        this.housingLocationList = housingLocationList
+        this.filteredLocationList = housingLocationList
+      }
+    )
   }
 
   filterResults(text: string) {
