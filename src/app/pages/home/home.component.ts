@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { HousingLocationComponent } from '../housing-location/housing-location.component';
-import { HousingLocation } from '../../housingLocation';
+import { HousingLocation } from '../../interfaces/housingLocation';
 import { CommonModule } from '@angular/common';
 import {HousingService} from '../../services/housing.service';
 
@@ -8,20 +8,7 @@ import {HousingService} from '../../services/housing.service';
   selector: 'app-home',
   imports: [CommonModule, HousingLocationComponent],
   providers: [HousingService],
-  template: `
-    <section>
-      <form>
-        <input type="text" placeholder="Filter by city" #filter />
-        <button class="primary" type="button" (click)="filterResults(filter.value)">Search</button>
-      </form>
-    </section>
-    <section class="results">
-      <app-housing-location 
-        *ngFor="let housingLocation of filteredLocationList"
-        [housingLocation]="housingLocation"
-      ></app-housing-location>
-    </section>
-  `,
+  templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent {

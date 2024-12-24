@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HousingLocation } from '../housingLocation';
+import { HousingLocation } from '../interfaces/housingLocation';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
